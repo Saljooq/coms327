@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_ROOMS 8
+#define MAX_ROOMS 7
 #define MIN_ROOMS 6
 #define xlenMax 78
 #define ylenMax 19
@@ -88,6 +88,43 @@ int main()
 		}
 	}
 	
+	for (int counter = 0; counter < numRooms - 1; counter++)
+	{
+		int middlex = rooms[counter].xloc;
+		int middley = rooms[counter + 1].yloc;
+		int i;
+		
+		if (rooms[counter].yloc > middley) i = 1;
+		else i = -1;
+		
+		for (int j = middley; j != rooms[counter].yloc; j += i)
+		{
+			if (grid[middlex][j] != '.') grid[middlex][j] = '#';
+		}
+		
+		if (rooms[counter + 1].xloc > middlex) i = 1;
+		else i = -1;
+		
+		for (int j = middlex; j != rooms[counter + 1].xloc; j += i)
+		{
+			if (grid[j][middley] != '.') grid[j][middley] = '#';
+		}
+		
+	}
+	
+	
+	while (1)
+	{
+		int x = 1 + (rand() % (xlenMax - 2));
+		int y = 1 + (rand() % (ylenMax - 2));
+		
+		if (grid[x][y] == '.' && grid[x - 1][y] == '.' && grid[x + 1][y] == '.')
+		{
+			grid[x][y] = '>';
+			break;
+		}
+	}
+	
 	for (int i = 0; i < xlenMax; i++) {printf("-");}
 	printf("\n");
 	for (int i = 0; i < ylenMax; i++)
@@ -102,14 +139,7 @@ int main()
 	for (int i = 0; i < xlenMax; i++) {printf("-");}
 	printf("\n\n\n");
 	
-	/*
-	while(1)
-	{
-		
-	}
-	*/
 
-	
 	
 	return 0;
 }
