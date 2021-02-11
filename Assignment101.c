@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_ROOMS 7
+#define MAX_ROOMS 12
 #define MIN_ROOMS 6
+
 #define xlenMax 78
 #define ylenMax 19
 
-#define maxRoomxlen (xlenMax / 2)
-#define maxRoomylen (ylenMax / 2)
+
 #define minRoomxlen 4
 #define minRoomylen 3
 
@@ -21,23 +21,26 @@ typedef struct room
 }room;
 
 int makes_sense(room rooms[], int numRooms);
+int not_so_rand_roomsize_resizer(int numRooms);
 
 int main()
 {
 	//we will start out by creating a seed with time-0 to access some randomeness
 	srand(time(0));
-
-	//next we will print random numbers between variable i  and 50(fixed)
-
-	//for (int i = 0; i<10; i++) printf("%d ", i + 1 + (rand()%(50-i)));
-
-	//printf("\n\n");
-
-	//fprintf(stdout, "Hello world!\n");
 	
 	room rooms[MAX_ROOMS];
 	
 	int numRooms = MIN_ROOMS + (rand() % (MAX_ROOMS - MIN_ROOMS + 1));
+	
+	int resizer = not_so_rand_roomsize_resizer(numRooms);
+	
+	int maxRoomxlen = xlenMax / resizer;
+	if (maxRoomxlen <= minRoomxlen) maxRoomxlen = minRoomxlen + 1;
+	
+	
+	int maxRoomylen = ylenMax / resizer;
+	if (maxRoomylen <= minRoomylen) maxRoomylen = minRoomylen + 1;
+	
 	printf("num Rooms = %d\n", numRooms);
 	
 	while (1)
@@ -49,19 +52,12 @@ int main()
 			rooms[i].yloc = rand() % ylenMax;
 			rooms[i].xlen = minRoomxlen + rand() % ((maxRoomxlen) - minRoomxlen);
 			rooms[i].ylen = minRoomylen + rand() % ((maxRoomylen) - minRoomylen);
-			/*printf("coordinates for %dth is (%d, %d) and the length is (%d, %d) \n",i, 
-			rooms[i].xloc,
-			rooms[i].yloc,
-			rooms[i].xlen,
-			rooms[i].ylen);
-			*/
 		}
 		if (makes_sense(rooms, numRooms)) break;
 		
 		
 	}
 	
-	printf("success\n");
 	
 	char grid[xlenMax][ylenMax];
 	
@@ -71,7 +67,6 @@ int main()
 		{
 			grid[i][j] = ' ';
 		}
-		//printf("\n");
 	}
 	
 	
@@ -84,7 +79,6 @@ int main()
 			{
 				grid[i][j] = '.';
 			}
-			//printf("|\n");
 		}
 	}
 	
@@ -146,7 +140,7 @@ int main()
 
 int makes_sense(room rooms[], int numRooms)
 {
-	//return 1;
+
 	int checker = 1;
 	
 	for (int i = 0; i < numRooms; i++)
@@ -174,19 +168,6 @@ int makes_sense(room rooms[], int numRooms)
 				}
 				
 				
-				
-				/*rooms[i].xloc >= rooms[j].xloc &&
-				rooms[i].xloc <= (rooms[j].xloc + rooms[j].xlen + 1) &&
-				rooms[i].yloc >= rooms[j].yloc &&
-				rooms[i].yloc <= (rooms[j].yloc + rooms[j].ylen + 1)
-				) checker = 0;
-				else if(
-				rooms[i].xloc + rooms[i].xlen >= rooms[j].xloc &&
-				rooms[i].xloc + rooms[i].xlen <= (rooms[j].xloc + rooms[j].xlen + 1) &&
-				rooms[i].yloc >= rooms[j].yloc &&
-				rooms[i].yloc <= (rooms[j].yloc + rooms[j].ylen + 1) 
-				) checker = 0;*/
-				
 			}
 			
 			if (checker == 0) break;
@@ -202,4 +183,11 @@ int makes_sense(room rooms[], int numRooms)
 	}
 	
 	return checker;
+}
+
+int not_so_rand_roomsize_resizer(int numRooms)
+{
+	int roomSizer = (numRooms/2) - 1;
+
+	return roomSizer;
 }
