@@ -1,0 +1,29 @@
+commit cbf1babd14bb0f2e2d5b2cdc0fa9f81f24eee5c2
+Author: Saljooq <altaf.saljooq@outlook.com>
+Date:   Thu Feb 11 17:21:17 2021 -0600
+
+    added variability of maxRoomSize by creating a new not_so_random_roomSize_resizer() function, also corrected to protect against floating point core dump when maxRoomSize was less than or equal to minimum
+
+commit d97a0873cb58ffe03e26fe42c420efc5f9a4cde8
+Author: Saljooq <altaf.saljooq@outlook.com>
+Date:   Wed Feb 10 01:06:59 2021 -0600
+
+    Got the corridors and the staircases in the dungeon to work
+
+commit 734bf6b24d078b934f43f893ee4d6bd4a29120d3
+Author: Saljooq <altaf.saljooq@outlook.com>
+Date:   Wed Feb 10 00:04:11 2021 -0600
+
+    finally managed to get the floors in the dungeon to work
+
+commit 12dd48dbe9f9332376eb602d61c9033be8d3d289
+Author: Saljooq <altaf.saljooq@outlook.com>
+Date:   Tue Feb 9 14:24:27 2021 -0600
+
+    checking setup of git repository
+
+commit f8d6acb53767c62afcf21ae59bdf30ac8035f72e
+Author: Saljooq <75107181+Saljooq@users.noreply.github.com>
+Date:   Tue Feb 9 15:17:00 2021 -0500
+
+    Initial commit

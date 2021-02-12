@@ -12,6 +12,9 @@
 #define minRoomxlen 4
 #define minRoomylen 3
 
+#define maxStairs 3
+#define minStairs 1
+
 typedef struct room
 {
 	int xloc;
@@ -41,7 +44,7 @@ int main()
 	int maxRoomylen = ylenMax / resizer;
 	if (maxRoomylen <= minRoomylen) maxRoomylen = minRoomylen + 1;
 	
-	printf("num Rooms = %d\n", numRooms);
+	//printf("num Rooms = %d\n", numRooms);
 	
 	while (1)
 	{
@@ -106,16 +109,30 @@ int main()
 		
 	}
 	
-	
-	while (1)
+	for (int i = 0; i < 2; i++)
 	{
-		int x = 1 + (rand() % (xlenMax - 2));
-		int y = 1 + (rand() % (ylenMax - 2));
+		char staircase;
+		if (i == 0) staircase = '<';
+		else staircase = '>';
 		
-		if (grid[x][y] == '.' && grid[x - 1][y] == '.' && grid[x + 1][y] == '.')
+		int numStairs = minStairs + rand() % ((maxStairs) - minStairs);
+		
+		for (int j = 0; j < numStairs; j++)
 		{
-			grid[x][y] = '>';
-			break;
+	
+			while (1)
+			{
+				int x = 1 + (rand() % (xlenMax - 2));//this ensures that we're not on the left or the right edge because the condition below checks horizontal neighbours
+				int y = (rand() % (ylenMax));
+
+				if (grid[x][y] == '.' && grid[x - 1][y] == '.' && grid[x + 1][y] == '.')
+				{
+					grid[x][y] = staircase;
+					break;
+				}
+			}
+			
+			
 		}
 	}
 	
@@ -141,7 +158,7 @@ int main()
 int makes_sense(room rooms[], int numRooms)
 {
 
-	int checker = 1;
+	int checker = 1;//this essentially marks whether the program makes any sense, 0 indicates it doesnn't
 	
 	for (int i = 0; i < numRooms; i++)
 	{
